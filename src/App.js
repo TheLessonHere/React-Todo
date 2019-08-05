@@ -43,13 +43,19 @@ class App extends React.Component {
 
   handleClearCompleted = event => {
     console.log('Cleared Completed');
-    const clearedtodo = this.state.todo.filter(task => task.completed === true);
-    this.setState({ todo: clearedtodo, ...this.state.value});
+    const clearedtodo = this.state.todo.filter(task => task.completed === false);
+    console.log(clearedtodo);
+    this.setState({ todo: [clearedtodo], ...this.state.value});
   }
 
   handleSetComplete = event => {
-    console.log(`Set ${event.target} to complete`)
-    event.target.classList.toggle('completed');
+    console.log(`Set to completed`);
+    const clickedID = event.target.id;
+    this.setState(prevState => ({
+      todo: prevState.todo.map(
+        task => task.id === clickedID ? { ...task, completed: !prevState.task.completed } : task
+      )
+    }))
   }
 
   render() {

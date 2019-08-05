@@ -15,7 +15,7 @@ const TodoForm = (props) => {
                         value={value}
                         onChange={valueSetter}/>
                         <button type='submit'>Add Todo</button>
-                        <button onClick={clearCompleted}>Clear Completed</button>
+                        <button type='reset' onClick={clearCompleted}>Clear Completed</button>
                 </fieldset>
             </form>
         </div>
