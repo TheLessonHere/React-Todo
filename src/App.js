@@ -45,15 +45,15 @@ class App extends React.Component {
     console.log('Cleared Completed');
     const clearedtodo = this.state.todo.filter(task => task.completed === false);
     console.log(clearedtodo);
-    this.setState({ todo: [clearedtodo], ...this.state.value});
+    this.setState({ todo: clearedtodo, ...this.state.value});
   }
 
   handleSetComplete = event => {
     console.log(`Set to completed`);
-    const clickedID = event.target.id;
+    const clickedID = parseInt(event.target.id, 10)
     this.setState(prevState => ({
       todo: prevState.todo.map(
-        task => task.id === clickedID ? { ...task, completed: !prevState.task.completed } : task
+        task => task.id === clickedID ? { ...task, completed: !this.completed } : task
       )
     }))
   }
