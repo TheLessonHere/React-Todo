@@ -7,10 +7,15 @@ import Todo from './Todo';
 export default function TodoList (props) {
     const { todo, completedSetter } = props;
 
+    const handleClick = event => {
+        completedSetter()
+    };
+
     return todo.map(task => {
            return <Todo 
            task={task.task} 
            id={task.id}
-           completedSetter={completedSetter} />
+           completed={task.completed}
+           onClick={handleClick} />
         })
 }

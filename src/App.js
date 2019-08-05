@@ -1,6 +1,7 @@
 import React from 'react';
 
 import TodoList from './components/TodoComponents/TodoList';
+import TodoForm from './components/TodoComponents/TodoForm';
 
 class App extends React.Component {
   // you will need a place to store your state in this component.
@@ -10,37 +11,57 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      todo: [],
+      todo: [{
+        task: 'Create App',
+        id: 1,
+        completed: false
+      },
+      {
+        task: 'Style App',
+        id: 2,
+        completed: false
+      }],
       value: ''
     };
   }
 
   handleInputChange = event => {
     console.log(event.target.value);
-    this.setState({ ...todo, value: event.target.value });
+    this.setState({ ...this.state.todo, value: event.target.value });
   };
 
   handleAddTodo = event => {
+    event.preventDefault();
     console.log('Task Added');
     const currentdate = Date.now();
-    this.setState({ todo: [...todo, {
+    this.setState({ todo: [...this.state.todo, {
       task: this.state.value,
       id: currentdate,
       completed: false
-    }], ...value });
-    this.setState({ ...todo, value: '' });
+    }], value: '' });
   };
 
   handleClearCompleted = event => {
     console.log('Cleared Completed');
     const clearedtodo = this.state.todo.filter(task => task.completed === true);
-    this.setState({ todo: clearedtodo, ...value});
+    this.setState({ todo: clearedtodo, ...this.state.value});
+  }
+
+  handleSetComplete = event => {
+    console.log(`Set ${event.target} to complete`)
+    event.target.classList.toggle('completed');
   }
 
   render() {
     return (
       <div>
         <h2>Todo List: MVP</h2>
+        <TodoList todo={this.state.todo} completedSetter={this.handleSetComplete} />
+        <TodoForm 
+        submitTask={this.handleAddTodo} 
+        clearCompleted={this.handleClearCompleted}
+        value={this.state.value}
+        valueSetter={this.handleInputChange} />
       </div>
     );
   }

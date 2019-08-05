@@ -1,13 +1,11 @@
 import React from 'react';
 
-export default function Todo (props) {
-    const { task, id, completedSetter } = props;
+import './Todo.css';
 
-    handleClick = event => {
-        completedSetter()
-    };
+export default function Todo (props) {
+    const { task, id, completed, handleClick } = props;
 
     return (
-        <p id={id} className='list-item' onClick={handleClick}>{task}</p>
+        <p id={id} className={completed.toString()} onClick={handleClick}>{task}</p>
     )
 }

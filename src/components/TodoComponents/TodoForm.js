@@ -1,22 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 const TodoForm = (props) => {
-    const { submitTask, initialTask, clearCompleted } = props;
-    const [value, setValue] = useState(initialTask || '');
-
-    const handleChange = (event) => {
-        setValue(event.target.value)
-    }
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        submitTask(value);
-        setValue('');
-    }
+    const { submitTask, clearCompleted, value, valueSetter } = props;
 
     return (
         <div className="new-task-form">
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={submitTask}>
                 <fieldset>
                     <legend>New Task:</legend>
                         <input
@@ -24,7 +13,7 @@ const TodoForm = (props) => {
                         type='text'
                         placeholder='...todo'
                         value={value}
-                        onChange={handleChange}/>
+                        onChange={valueSetter}/>
                         <button type='submit'>Add Todo</button>
                         <button onClick={clearCompleted}>Clear Completed</button>
                 </fieldset>
@@ -32,3 +21,5 @@ const TodoForm = (props) => {
         </div>
     )
 }
+
+export default TodoForm;
